@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Privacy & Ethics | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <span class="pill-badge">Ethical Framework</span>
+  <h1 class="mb-2">Privacy, Data Ethics & Safety</h1>
+  <p class="lead-text mb-4">How {{ app_name }} protects student privacy, stores records, and safeguards wellbeing.</p>
+
+  <div class="card-custom p-4 mb-4">
+    <h4 class="fw-bold mb-2">1. Data Storage & Encryption</h4>
+    <p class="small text-muted mb-0">
+      Account passwords are encrypted using one-way cryptographic salts (Werkzeug PBKDF2). Survey responses and micro-activity session records are stored in a local SQLite database and are strictly utilized to compute your personal dashboard metrics. We never sell student data or serve third-party advertising.
+    </p>
+  </div>
+
+  <div class="card-custom p-4 mb-4">
+    <h4 class="fw-bold mb-2">2. Right to Complete Erasure</h4>
+    <p class="small text-muted mb-0">
+      You retain full sovereignty over your digital footprint. You can permanently wipe your account, survey records, and activity logs at any time by visiting your Settings page and typing "DELETE".
+    </p>
+  </div>
+
+  <div class="card-custom p-4 mb-4">
+    <h4 class="fw-bold mb-2">3. Non-Clinical Scope & Safe Practice</h4>
+    <p class="small text-muted mb-3">
+      {{ app_name }} is an academic Project-Based Learning tool created to test the efficacy of micro-breaks on student focus and stress. It is not an FDA/CDSCO certified medical device and should not be used to diagnose, treat, or mitigate psychiatric disorders.
+    </p>
+    <div class="p-3 bg-light rounded border">
+      <strong class="d-block mb-1 text-primary-dark">Crisis Resources (India):</strong>
+      <ul class="list-unstyled small text-muted mb-0">
+        <li>📞 <strong>Tele-MANAS (Govt. of India):</strong> 14416 or 1800-891-4416 (24/7 Toll-free)</li>
+        <li>📞 <strong>Kiran Mental Health Helpline:</strong> 1800-599-0019</li>
+        <li>📞 <strong>Emergency Services:</strong> 112</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="text-center pt-2">
+    <a href="{{ url_for('home') if current_user else url_for('index') }}" class="btn btn-custom-secondary">
+      ← Return to Main Page
+    </a>
+  </div>
+</div>
+{% endblock %}

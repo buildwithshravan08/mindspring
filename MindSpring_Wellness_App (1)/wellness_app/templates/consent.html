@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Research & Safety Consent | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card narrow">
+  <span class="pill-badge">Safe Space Notice</span>
+  <h1 class="mb-2">Before we begin 💚</h1>
+  <p class="lead-text mb-4">Your emotional safety and digital privacy are our highest priorities.</p>
+
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="p-3 bg-light rounded border mb-3">
+      <div class="form-check">
+        <input class="form-check-input mt-1" type="checkbox" name="c1" id="consentMedical" required>
+        <label class="form-check-label small" for="consentMedical">
+          <strong>Wellness Aid Disclaimer:</strong> I understand that {{ app_name }} is a student self-care tool designed to foster mindfulness and digital balance, not medical or psychological therapy. In any urgent crisis, I will reach out to local emergency services or call Tele-MANAS at <strong>14416</strong>.
+        </label>
+      </div>
+    </div>
+
+    <div class="p-3 bg-light rounded border mb-4">
+      <div class="form-check">
+        <input class="form-check-input mt-1" type="checkbox" name="c2" id="consentResearch" required>
+        <label class="form-check-label small" for="consentResearch">
+          <strong>Research Participation:</strong> I agree that my anonymized survey patterns may be evaluated for educational and Project-Based Learning analysis, and I have reviewed the <a href="{{ url_for('privacy') }}" target="_blank">Privacy Policy</a>.
+        </label>
+      </div>
+    </div>
+
+    <button class="btn btn-custom-primary btn-lg w-100" type="submit">
+      I Agree • Continue to Baseline Survey →
+    </button>
+  </form>
+</div>
+{% endblock %}

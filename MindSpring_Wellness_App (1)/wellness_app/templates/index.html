@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to {{ app_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-wrapper">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <span class="pill-badge">🌿 Mindful Campus Sanctuary</span>
+      <h1 class="mb-3">
+        Small pauses.<br>
+        <span class="text-primary-dark">Brighter student minds.</span>
+      </h1>
+      <p class="lead-text mb-4">
+        Evidence-informed 2 to 5 minute micro-breaks crafted for college students. Decompress from exam stress, regain study focus, and restore balance—completely at your own pace.
+      </p>
+      
+      <div class="d-flex flex-wrap gap-3 mb-4">
+        <a class="btn btn-custom-primary btn-lg" href="{{ url_for('signup') }}">
+          Begin Your Journey →
+        </a>
+        <a class="btn btn-custom-secondary btn-lg" href="{{ url_for('login') }}">
+          Log In
+        </a>
+      </div>
+
+      <div class="d-flex align-items-center gap-3 pt-2">
+        <div class="d-flex -space-x-2">
+          <img class="rounded-circle border border-2 border-white shadow-sm" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" width="38" height="38" alt="Student">
+          <img class="rounded-circle border border-2 border-white shadow-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80" width="38" height="38" alt="Student">
+          <img class="rounded-circle border border-2 border-white shadow-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" width="38" height="38" alt="Student">
+        </div>
+        <span class="small text-muted">Join students taking mindful breaks without toxic productivity or leaderboards.</span>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="hero-img-box">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students studying mindfully on a calm campus lawn">
+        <div class="hero-floating-stat">
+          <div class="stat-icon">✨</div>
+          <div>
+            <strong class="d-block text-primary-dark fs-5">Pressure-Free Self Care</strong>
+            <span class="small text-muted">No penalty for missed days • Scientifically grounded PSS-4 metrics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 Steps Section -->
+<section class="py-5">
+  <div class="text-center max-w-700 mx-auto mb-5">
+    <span class="pill-badge">How It Works</span>
+    <h2 class="fw-bold">Designed to fit between lectures & assignments</h2>
+    <p class="text-muted">You do not need an hour of meditation to feel better. Three minutes is enough to reset your nervous system.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100">
+        <div class="fs-1 mb-3">🧭</div>
+        <h4>1. Quick Mood Check-In</h4>
+        <p class="text-muted small">Choose how you feel right now—whether you are stressed about an exam, distracted by notifications, or drained from a long lab.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100">
+        <div class="fs-1 mb-3">🧘</div>
+        <h4>2. Tailored Micro-Exercise</h4>
+        <p class="text-muted small">The engine recommends an activity matched to your time window (2, 3, or 5 mins)—from Box Breathing and Schulte Focus Tables to Bubble Pop.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100">
+        <div class="fs-1 mb-3">📈</div>
+        <h4>3. Notice Real Progress</h4>
+        <p class="text-muted small">Observe how your mood shifts before and after each session. Watch your wellness index grow quietly as showing up becomes a habit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Activity Category Preview with Real Images -->
+<section class="py-5">
+  <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+    <div>
+      <span class="pill-badge">Interactive Exercises</span>
+      <h2 class="fw-bold">13 Grounding Activities for Every Moment</h2>
+    </div>
+    <a href="{{ url_for('signup') }}" class="btn btn-custom-secondary btn-sm">Explore All Activities →</a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-3 col-6">
+      <div class="card-custom overflow-hidden h-100">
+        <img class="w-100" style="height: 140px; object-fit: cover;" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80" alt="Box Breathing">
+        <div class="p-3">
+          <span class="badge bg-light text-dark mb-1">Calming</span>
+          <h6 class="fw-bold mb-1">Box Breathing</h6>
+          <p class="small text-muted mb-0">Slow 4x4 autonomic nervous system reset.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card-custom overflow-hidden h-100">
+        <img class="w-100" style="height: 140px; object-fit: cover;" src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" alt="Schulte Table">
+        <div class="p-3">
+          <span class="badge bg-light text-dark mb-1">Stimulating</span>
+          <h6 class="fw-bold mb-1">Schulte Focus Grid</h6>
+          <p class="small text-muted mb-0">Peripheral visual attention sharpening.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card-custom overflow-hidden h-100">
+        <img class="w-100" style="height: 140px; object-fit: cover;" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Grounding Quest">
+        <div class="p-3">
+          <span class="badge bg-light text-dark mb-1">Calming</span>
+          <h6 class="fw-bold mb-1">Grounding 5-4-3-2-1</h6>
+          <p class="small text-muted mb-0">Sensory re-anchoring when anxiety strikes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card-custom overflow-hidden h-100">
+        <img class="w-100" style="height: 140px; object-fit: cover;" src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=600&q=80" alt="2-Minute Start">
+        <div class="p-3">
+          <span class="badge bg-light text-dark mb-1">Focus</span>
+          <h6 class="fw-bold mb-1">2-Minute Start</h6>
+          <p class="small text-muted mb-0">Dopamine trigger to overcome procrastination.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Student Testimonials Section -->
+<section class="py-5 bg-white rounded-4 p-4 p-lg-5 my-4 border">
+  <div class="text-center mb-5">
+    <span class="pill-badge">Student Voices</span>
+    <h2 class="fw-bold">Real Stories From College Campuses</h2>
+    <p class="text-muted">How brief mindful breaks reshape the college experience.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100 bg-light border-0">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img class="rounded-circle object-fit-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" width="50" height="50" alt="Aarav">
+          <div>
+            <h6 class="fw-bold mb-0">Aarav M.</h6>
+            <span class="small text-muted">3rd Year Computer Engineering</span>
+          </div>
+        </div>
+        <p class="small text-muted mb-0">
+          "Before coding practicals, I used to enter an overthinking spiral. Doing 3 minutes of Box Breathing in {{ app_name }} helps steady my heartbeat without taking up study time."
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100 bg-light border-0">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img class="rounded-circle object-fit-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" width="50" height="50" alt="Ananya">
+          <div>
+            <h6 class="fw-bold mb-0">Ananya S.</h6>
+            <span class="small text-muted">2nd Year Medical Sciences</span>
+          </div>
+        </div>
+        <p class="small text-muted mb-0">
+          "The Sound Sanctuary brown noise combined with soft rain is my holy grail for night-time study sessions in the library. And there are no annoying ads or subscription paywalls."
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card-custom p-4 h-100 bg-light border-0">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img class="rounded-circle object-fit-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" width="50" height="50" alt="Rohan">
+          <div>
+            <h6 class="fw-bold mb-0">Rohan K.</h6>
+            <span class="small text-muted">4th Year Architecture</span>
+          </div>
+        </div>
+        <p class="small text-muted mb-0">
+          "I love that there are no competitive ranks. It rewards you just for showing up and looking after your mental space. The 2-minute start cured my project paralysis."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Frequently Asked Questions Accordion -->
+<section class="py-5">
+  <div class="text-center mb-5">
+    <span class="pill-badge">Clear Answers</span>
+    <h2 class="fw-bold">Frequently Asked Questions</h2>
+  </div>
+
+  <div class="accordion accordion-flush form-card" id="faqAccordion">
+    <div class="accordion-item border-bottom mb-2">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Is {{ app_name }} a medical diagnosis or therapy app?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted small">
+          No. {{ app_name }} is an academic wellness aid designed to foster self-regulation and healthy digital habits. It does not replace professional therapy, clinical psychiatry, or campus psychological services.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item border-bottom mb-2">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          How are the micro-activities personalized?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted small">
+          Activities are recommended based on your declared mood (Stressed, Anxious, Distracted, Tired, or Lazy), your current emotional intensity (1–5), available time (2, 3, or 5 mins), and time of day (biasing toward calming exercises after 9 PM).
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item border-bottom mb-2">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Is my personal data kept secure?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted small">
+          Yes. Passwords are securely hashed with industry-standard Werkzeug salts. You retain full control over your data and can permanently wipe your entire history at any time from your Settings page.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final Call to Action -->
+<section class="py-5 text-center">
+  <div class="card-custom p-5 max-w-700 mx-auto bg-light">
+    <h2 class="fw-bold mb-3">Ready to reclaim your headspace? 🌿</h2>
+    <p class="text-muted mb-4">Start with a 2-minute baseline survey and discover your personalized sanctuary.</p>
+    <a class="btn btn-custom-primary btn-lg" href="{{ url_for('signup') }}">
+      Create Free Account →
+    </a>
+  </div>
+</section>
+{% endblock %}

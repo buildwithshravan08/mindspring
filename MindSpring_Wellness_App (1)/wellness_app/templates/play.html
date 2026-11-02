@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ activity[0] }} | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="game-shell-modern text-center" 
+     id="game" 
+     data-kind="{{ activity[2] }}" 
+     data-duration="{{ activity[1] }}" 
+     data-name="{{ activity[0]|e }}" 
+     data-mood="{{ mood|e }}" 
+     data-intensity="{{ intensity or 3 }}"
+     data-csrf="{{ csrf_token }}">
+
+  <!-- Top Activity Header & Sound Toggle -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="pill-badge mb-0">{{ mood }} • {{ activity[1] }}s Challenge</span>
+    <button class="btn btn-sm btn-outline-secondary" id="sfxMuteBtn" onclick="toggleGameSFX()">
+      🔊 Sound: ON
+    </button>
+  </div>
+
+  <h1 class="mb-2">{{ activity[0] }}</h1>
+  <p class="text-muted mb-4">{{ activity[5] }}</p>
+
+  <!-- Panel 1: Check-in Before Activity Starts -->
+  <div id="beforePanel" class="card-custom p-4 p-md-5 mb-3 bg-light">
+    <h4 class="fw-bold mb-2">Check-in: How intense is this state right now?</h4>
+    <p class="small text-muted mb-4">
+      1 = Very mild / relaxed &nbsp;•&nbsp; 3 = Moderate &nbsp;•&nbsp; 5 = Intense / hard to concentrate
+    </p>
+    
+    <div class="d-flex justify-content-center gap-2 mb-4" id="beforeRatings">
+      {% for i in range(1, 6) %}
+        <button type="button" class="rating-btn" onclick="setBefore({{ i }})">{{ i }}</button>
+      {% endfor %}
+    </div>
+
+    <button id="beginButton" class="btn btn-custom-primary btn-lg px-5" disabled onclick="beginGame()">
+      Start Activity →
+    </button>
+  </div>
+
+  <!-- Panel 2: Active Activity View -->
+  <div id="activePanel" hidden>
+    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+      <span class="fw-bold text-primary-dark fs-5" id="timeLeft">Ready</span>
+      <span class="small fw-bold text-muted" id="gameCount">Get ready...</span>
+    </div>
+
+    <div class="progress mb-4" style="height: 10px; border-radius: 8px;">
+      <div class="progress-bar" id="gameProgress" style="width: 0%; background-color: var(--primary);"></div>
+    </div>
+
+    <!-- Interactive Canvas & Arena Area -->
+    <div id="gameArea" class="game-area-modern mb-4"></div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3 pt-2">
+      <span class="small text-muted" id="gameControlsHint">Active engagement is tracked</span>
+      <button class="btn btn-custom-secondary btn-sm" onclick="endGame()">
+        Finish early (Record progress)
+      </button>
+    </div>
+  </div>
+
+  <!-- Panel 3: Check-in After Activity Finishes -->
+  <div id="afterPanel" class="card-custom p-4 p-md-5 bg-light" hidden>
+    <!-- Game Results & High Score Banner -->
+    <div id="gameResultsCard" class="mb-4"></div>
+
+    <h4 class="fw-bold mb-2">Check-in: How intense does that feeling seem now?</h4>
+    <p class="small text-muted mb-4">
+      1 = Very mild / relaxed &nbsp;•&nbsp; 3 = Moderate &nbsp;•&nbsp; 5 = Overwhelming
+    </p>
+
+    <div class="d-flex justify-content-center gap-2 mb-4" id="afterRatings">
+      {% for i in range(1, 6) %}
+        <button type="button" class="rating-btn" onclick="setAfter({{ i }})">{{ i }}</button>
+      {% endfor %}
+    </div>
+
+    <button id="saveButton" class="btn btn-custom-primary btn-lg px-5" disabled onclick="saveGame()">
+      Save Session to My Progress →
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='games.js') }}"></script>
+{% endblock %}

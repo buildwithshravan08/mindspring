@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Sound Sanctuary | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="row align-items-center mb-4">
+  <div class="col-lg-7">
+    <span class="pill-badge">Procedural Ambient Sanctuary</span>
+    <h1 class="mb-2">Sound Sanctuary 🎵</h1>
+    <p class="lead-text mb-0">
+      Mix custom ambient soundscapes for study focus, reading, or sleep. Procedurally synthesized in real-time right in your browser.
+    </p>
+  </div>
+  <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+    <button id="masterPlayBtn" class="btn btn-custom-primary btn-lg px-4" onclick="toggleMasterPlay()">
+      <span id="masterPlayIcon" class="me-2">▶</span>
+      <span id="masterPlayLabel">Play Sanctuary</span>
+    </button>
+  </div>
+</div>
+
+<!-- Sound Visualizer Canvas & Presets Bar -->
+<div class="card-custom p-4 mb-4">
+  <div class="row align-items-center g-3">
+    <div class="col-md-6">
+      <div class="d-flex align-items-center gap-2">
+        <span class="small fw-bold text-muted">Quick Presets:</span>
+        <button class="btn btn-sm btn-custom-secondary" onclick="applyPreset('study')">📚 Deep Study</button>
+        <button class="btn btn-sm btn-custom-secondary" onclick="applyPreset('rainy')">🌧️ Rainy Cafe</button>
+        <button class="btn btn-sm btn-custom-secondary" onclick="applyPreset('calm')">🌊 Ocean Sunset</button>
+        <button class="btn btn-sm btn-custom-secondary" onclick="applyPreset('sleep')">🌙 Sleep Drift</button>
+      </div>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <canvas id="soundCanvas" width="300" height="40" style="width: 100%; max-width: 280px; height: 36px; border-radius: 8px; background: #edf2eb;"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 4 Interactive Audio Channel Cards -->
+<div class="row g-4">
+  <!-- 1. Gentle Rain -->
+  <div class="col-md-6 col-lg-3">
+    <div class="sound-card h-100" id="card-rain">
+      <img class="sound-thumb" src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=600&q=80" alt="Gentle Rain">
+      <div class="sound-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-bold mb-0">🌧️ Gentle Rain</h5>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggle-rain" checked onchange="toggleChannel('rain', this.checked)">
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Soft filtered drops falling on leaves, ideal for easing mental clutter.</p>
+        <label class="small text-muted fw-bold d-block mb-1">Volume</label>
+        <input type="range" class="form-range" id="slider-rain" min="0" max="100" value="50" oninput="updateChannelVolume('rain', this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Ocean Waves -->
+  <div class="col-md-6 col-lg-3">
+    <div class="sound-card h-100" id="card-ocean">
+      <img class="sound-thumb" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Ocean Surf">
+      <div class="sound-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-bold mb-0">🌊 Ocean Surf</h5>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggle-ocean" onchange="toggleChannel('ocean', this.checked)">
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Rhythmic 7-second swelling tides to naturally pace relaxed breathing.</p>
+        <label class="small text-muted fw-bold d-block mb-1">Volume</label>
+        <input type="range" class="form-range" id="slider-ocean" min="0" max="100" value="40" oninput="updateChannelVolume('ocean', this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Deep Focus Brown Noise -->
+  <div class="col-md-6 col-lg-3">
+    <div class="sound-card h-100" id="card-brown">
+      <img class="sound-thumb" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80" alt="Brown Noise">
+      <div class="sound-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-bold mb-0">☕ Brown Noise</h5>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggle-brown" onchange="toggleChannel('brown', this.checked)">
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Deep low-frequency rumble that masks library chatter and wandering ADHD attention.</p>
+        <label class="small text-muted fw-bold d-block mb-1">Volume</label>
+        <input type="range" class="form-range" id="slider-brown" min="0" max="100" value="30" oninput="updateChannelVolume('brown', this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Tibetan Singing Bowl -->
+  <div class="col-md-6 col-lg-3">
+    <div class="sound-card h-100" id="card-bowl">
+      <img class="sound-thumb" src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80" alt="Singing Bowl">
+      <div class="sound-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-bold mb-0">🕉️ Singing Bowl</h5>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggle-bowl" onchange="toggleChannel('bowl', this.checked)">
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Resonant 432 Hz harmonic drone with subtle calming acoustic shimmer.</p>
+        <label class="small text-muted fw-bold d-block mb-1">Volume</label>
+        <input type="range" class="form-range" id="slider-bowl" min="0" max="100" value="25" oninput="updateChannelVolume('bowl', this.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-light border mt-4 text-center small text-muted">
+  🌱 <strong>Ethical & Private:</strong> Generated 100% natively in your browser using the HTML5 Web Audio API. No external copyrighted music, zero tracking, works fully offline.
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='soundscape.js') }}"></script>
+{% endblock %}

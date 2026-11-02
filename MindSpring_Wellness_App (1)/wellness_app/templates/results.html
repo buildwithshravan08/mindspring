@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Baseline Wellness Index | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card text-center">
+  <span class="pill-badge">Baseline Assessment</span>
+  <h1 class="mb-2">A starting point, not a label 🌼</h1>
+  <p class="lead-text mb-4">
+    Your responses have established your personal starting baseline across four key dimensions.
+  </p>
+
+  <div class="score-circle-modern">
+    <span class="score-num">{{ s['score'] }}</span>
+    <span class="score-max">/ 10</span>
+  </div>
+
+  <h3 class="fw-bold mt-3 mb-1 text-primary-dark">{{ label }}</h3>
+  <p class="small text-muted mb-4">
+    This score is an evidence-informed student wellness metric, not a clinical psychiatric score.
+  </p>
+
+  <!-- Domains Breakdown -->
+  <div class="row g-3 text-start my-4">
+    {% for domain_name, val in domains.items() %}
+      <div class="col-md-6">
+        <div class="card-custom p-3 bg-light">
+          <div class="d-flex justify-content-between small fw-bold mb-1">
+            <span>{{ domain_name }}</span>
+            <span>{{ '%.1f'|format(val) }} / 10</span>
+          </div>
+          <div class="progress" style="height: 10px; border-radius: 8px;">
+            <div class="progress-bar" style="width: {{ val * 10 }}%; background-color: var(--primary);"></div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-4">
+    <a href="{{ url_for('home') }}" class="btn btn-custom-primary btn-lg px-5">
+      Enter Your Daily Reset →
+    </a>
+  </div>
+</div>
+{% endblock %}

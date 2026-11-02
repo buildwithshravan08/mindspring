@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block title %}Daily Reset | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="row g-4 align-items-center mb-4">
+  <div class="col-lg-8">
+    <span class="pill-badge">Mindful Campus Space</span>
+    <h1 class="mb-2">How is your mind feeling right now, {{ first_name(current_user['name']) }}? 🌼</h1>
+    <p class="lead-text mb-0">Select your current mood below to immediately see and launch your tailored micro-activities.</p>
+  </div>
+  <div class="col-lg-4 text-lg-end d-flex gap-2 justify-content-lg-end flex-wrap">
+    <a href="{{ url_for('play', kind='charades', mood='Lazy') }}" class="btn btn-custom-primary">
+      🎬 Emoji Charades (60s)
+    </a>
+    <a href="{{ url_for('meditation') }}" class="btn btn-custom-secondary">
+      🎵 Sound Sanctuary
+    </a>
+  </div>
+</div>
+
+<!-- Featured Cinema Spotlight: Emoji Charades -->
+<div class="p-4 mb-4 rounded-4 text-white d-flex flex-wrap justify-content-between align-items-center shadow-sm" 
+     style="background: linear-gradient(135deg, #1f1147 0%, #3b1d75 50%, #6d28d9 100%); border: 1px solid rgba(255,215,0,0.3);">
+  <div class="d-flex align-items-center gap-3">
+    <span style="font-size: 2.6rem;">🎬</span>
+    <div>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <span class="badge bg-warning text-dark fw-bold">FEATURED GAME</span>
+        <h4 class="fw-bold mb-0 text-white">Cinema Emoji Charades</h4>
+        <span class="badge bg-light text-dark">60s Sprint</span>
+      </div>
+      <p class="small mb-0 text-white-50">Decode 25 classic Bollywood & Hollywood movies from emoji clues. Earn win streaks and beat your high score!</p>
+    </div>
+  </div>
+  <a href="{{ url_for('play', kind='charades', mood='Lazy') }}" class="btn btn-warning btn-lg fw-bold px-4 py-2 mt-3 mt-md-0 text-dark shadow">
+    Play Emoji Charades Now →
+  </a>
+</div>
+
+<!-- Interactive Daily Affirmation Card -->
+<div class="affirmation-box mb-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="small text-uppercase fw-bold text-muted">Daily Mindful Thought</span>
+    <button class="btn btn-sm btn-custom-secondary" onclick="shuffleAffirmation()">
+      Draw New Perspective ↻
+    </button>
+  </div>
+  <p class="affirmation-quote" id="affirmationText">
+    "Taking a pause right now is an investment in your focus, not a waste of study time. 🌿"
+  </p>
+  <span class="small text-muted">A gentle reminder to ground yourself between tasks.</span>
+</div>
+
+<!-- Step 1: Visual Mood Selector Cards -->
+<div class="mb-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold mb-0">1. Select Your Current State:</h4>
+    <button class="btn btn-sm btn-outline-primary" id="allGamesBtn" onclick="selectMoodTab('ALL')">
+      🌟 View All Games (Catalog)
+    </button>
+  </div>
+  <div class="row g-3">
+    {% for mood_name, mood_info in moods.items() %}
+      <div class="col-lg-4 col-md-6">
+        <div class="mood-picker-card {% if loop.first %}active-mood{% endif %}" 
+             id="mood-card-{{ mood_name }}" 
+             onclick="selectMoodTab('{{ mood_name }}')">
+          <img class="mood-img-thumb" src="{{ mood_info['image'] }}" alt="{{ mood_name }}">
+          <div class="mood-body">
+            <div class="mood-header">
+              <span class="mood-emoji">{{ mood_info['icon'] }}</span>
+              <h4 class="mb-0">{{ mood_name }}</h4>
+            </div>
+            <p class="small text-muted mb-0">{{ mood_info['desc'] }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Step 2: Instant Games List (Appears immediately on Mood Click) -->
+<div class="mt-5 pt-3" id="gamesSection">
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+    <div>
+      <span class="pill-badge mb-1">Interactive Activities</span>
+      <h3 class="fw-bold mb-0" id="gamesHeaderTitle">Activities for Feeling Stressed 🌪️</h3>
+    </div>
+    <span class="small text-muted">Click any activity to start playing instantly</span>
+  </div>
+
+  {% for mood_name, act_list in activities.items() %}
+    <div class="mood-games-container" id="games-group-{{ mood_name }}" {% if not loop.first %}style="display: none;"{% endif %}>
+      <div class="row g-4">
+        {% for act in act_list %}
+          <div class="col-md-6">
+            <div class="card-custom overflow-hidden h-100 d-flex flex-column">
+              <img src="{{ act[4] }}" alt="{{ act[0] }}" style="height: 180px; width: 100%; object-fit: cover;">
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h4 class="fw-bold mb-0 text-primary-dark">{{ act[0] }}</h4>
+                  <span class="badge bg-light text-dark border">{{ act[1] }}s</span>
+                </div>
+                <p class="text-muted small mb-3 flex-grow-1">{{ act[5] }}</p>
+                
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success text-uppercase">{{ act[3] }}</span>
+                  <a href="{{ url_for('play', kind=act[2], mood=mood_name) }}" class="btn btn-custom-primary btn-sm px-4">
+                    Play Now →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Interactive Quick Journal / Reflection -->
+<div class="journal-box mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h4 class="fw-bold mb-1">🌱 One-Line Mindful Journal</h4>
+      <p class="small text-muted mb-0">Unload one thought or celebrate one small win from today.</p>
+    </div>
+    <span class="badge bg-light text-muted border">Private & Encrypted</span>
+  </div>
+
+  <form action="{{ url_for('save_journal') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="tag" id="journalTagInput" value="Small Win">
+    
+    <label class="small fw-bold text-muted mb-2">Category Tag:</label>
+    <div class="tag-selector">
+      <span class="tag-chip active" onclick="selectJournalTag(this, 'Small Win')">✨ Small Win</span>
+      <span class="tag-chip" onclick="selectJournalTag(this, 'Gratitude')">🙏 Gratitude</span>
+      <span class="tag-chip" onclick="selectJournalTag(this, 'Exam Vent')">📚 Exam Vent</span>
+      <span class="tag-chip" onclick="selectJournalTag(this, 'Low Energy')">🌙 Low Energy</span>
+      <span class="tag-chip" onclick="selectJournalTag(this, 'Focus Note')">🎯 Focus Note</span>
+    </div>
+
+    <div class="input-group">
+      <input type="text" name="note" class="form-control form-control-lg" placeholder="e.g. Finally submitted my lab file on time..." required>
+      <button class="btn btn-custom-primary" type="submit">Record Reflection</button>
+    </div>
+  </form>
+
+  {% if journals %}
+    <div class="mt-4 pt-3 border-top">
+      <span class="small fw-bold text-muted d-block mb-2">Recent Reflections:</span>
+      <div class="d-flex flex-column gap-2">
+        {% for j in journals[:3] %}
+          <div class="p-2 px-3 bg-light rounded d-flex justify-content-between align-items-center small">
+            <div>
+              <span class="badge bg-secondary-subtle text-secondary me-2">{{ j['tag'] }}</span>
+              <span>{{ j['note'] }}</span>
+            </div>
+            <span class="text-muted small">{{ j['created'][:10] }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function selectMoodTab(moodName) {
+    // 1. Highlight clicked mood card or catalog button
+    document.querySelectorAll('.mood-picker-card').forEach(card => card.classList.remove('active-mood'));
+    const allBtn = document.getElementById('allGamesBtn');
+    if (allBtn) {
+      allBtn.classList.remove('btn-primary', 'text-white');
+      allBtn.classList.add('btn-outline-primary');
+    }
+
+    if (moodName === 'ALL') {
+      if (allBtn) {
+        allBtn.classList.remove('btn-outline-primary');
+        allBtn.classList.add('btn-primary', 'text-white');
+      }
+      // Show all groups
+      document.querySelectorAll('.mood-games-container').forEach(c => c.style.display = 'block');
+      const titleEl = document.getElementById('gamesHeaderTitle');
+      if (titleEl) titleEl.textContent = 'All Available Mindful Mini-Games 🌟';
+    } else {
+      const chosenCard = document.getElementById(`mood-card-${moodName}`);
+      if (chosenCard) chosenCard.classList.add('active-mood');
+
+      // Hide all game groups, show chosen mood's games
+      document.querySelectorAll('.mood-games-container').forEach(c => c.style.display = 'none');
+      const chosenGroup = document.getElementById(`games-group-${moodName}`);
+      if (chosenGroup) chosenGroup.style.display = 'block';
+
+      // Update header
+      const titleMap = {
+        'Stressed': 'Activities for Feeling Stressed 🌪️',
+        'Anxious': 'Activities for Feeling Anxious 🌊',
+        'Distracted': 'Activities for Sharp Focus 🦋',
+        'Tired': 'Activities for Low Energy 🌙',
+        'Lazy': 'Activities for Sluggishness & Motivation 🌱 (Emoji Charades, Sudoku, Cat Queens)'
+      };
+      const titleEl = document.getElementById('gamesHeaderTitle');
+      if (titleEl) titleEl.textContent = titleMap[moodName] || `Activities for ${moodName}`;
+    }
+
+    // Smooth scroll to games
+    const gamesSection = document.getElementById('gamesSection');
+    if (gamesSection) {
+      gamesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+</script>
+{% endblock %}

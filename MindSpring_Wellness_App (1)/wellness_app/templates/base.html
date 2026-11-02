@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ app_name }}{% endblock %} | Student Mindful Wellness</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom Modern Design System -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
+  <!-- Canvas Confetti for Milestone Celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-custom" href="{{ url_for('home') if current_user else url_for('index') }}">
+        <span style="font-size: 1.4rem;">✦</span> {{ app_name }}
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+          {% if current_user %}
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('home') }}">Daily Reset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link-custom fw-bold" href="{{ url_for('play', kind='charades', mood='Lazy') }}" style="color: #6366f1;">
+                🎬 Emoji Charades
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('meditation') }}">Sound Sanctuary 🎵</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('dashboard') }}">My Progress</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('settings') }}">Settings</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <div class="nav-user-pill">
+                <span>🌱</span>
+                <span>{{ first_name(current_user['name']) }}</span>
+              </div>
+            </li>
+            <li class="nav-item ms-lg-1">
+              <form action="{{ url_for('logout') }}" method="post" class="d-inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="submit" class="btn btn-link nav-link-custom text-danger text-decoration-none p-0 border-0" style="vertical-align: baseline;">Log out</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('index') }}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link-custom" href="{{ url_for('privacy') }}">Privacy & Safety</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn btn-custom-secondary btn-sm" href="{{ url_for('login') }}">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-custom-primary btn-sm" href="{{ url_for('signup') }}">Get Started</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Body -->
+  <main class="container py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Emergency Support Banner -->
+  <div class="container my-4">
+    <div class="hotline-banner d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <span class="fs-2">🛟</span>
+        <div>
+          <strong class="d-block text-primary-dark">Need urgent support or feeling in crisis?</strong>
+          <span class="small text-muted">{{ app_name }} is a self-care aid, not therapy or emergency care. You are not alone.</span>
+        </div>
+      </div>
+      <div>
+        <a href="tel:14416" class="btn btn-sm btn-custom-primary">
+          📞 Tele-MANAS: 14416 (India 24/7 Free)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Professional Site Footer -->
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+          <h5 class="fw-bold text-primary-dark">✦ {{ app_name }}</h5>
+          <p class="small text-muted mb-2">
+            An evidence-informed, pressure-free digital sanctuary built to support student mental wellbeing, academic focus, and healthy digital screen habits.
+          </p>
+          <span class="badge bg-light text-dark border">Project-Based Learning Initiative</span>
+        </div>
+        <div class="col-lg-3 col-6">
+          <h6 class="fw-bold mb-3">Quick Navigation</h6>
+          <ul class="list-unstyled small d-flex flex-column gap-2">
+            <li><a class="footer-link" href="{{ url_for('home') if current_user else url_for('index') }}">Home</a></li>
+            <li><a class="footer-link" href="{{ url_for('meditation') }}">Sound Sanctuary</a></li>
+            <li><a class="footer-link" href="{{ url_for('dashboard') if current_user else url_for('signup') }}">Student Dashboard</a></li>
+            <li><a class="footer-link" href="{{ url_for('settings') if current_user else url_for('login') }}">Accessibility & Settings</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-6">
+          <h6 class="fw-bold mb-3">Safety & Governance</h6>
+          <ul class="list-unstyled small d-flex flex-column gap-2">
+            <li><a class="footer-link" href="{{ url_for('privacy') }}">Privacy Policy & Ethics</a></li>
+            <li><a class="footer-link" href="{{ url_for('consent') if current_user else url_for('signup') }}">Research Consent</a></li>
+            <li><span class="text-muted">Kiran Helpline: 1800-599-0019</span></li>
+            <li><span class="text-muted">National Emergency: 112</span></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="text-muted opacity-25">
+      <div class="d-flex flex-wrap justify-content-between align-items-center small text-muted">
+        <div>&copy; {{ now.year }} {{ app_name }}. Built for student health & wellbeing.</div>
+        <div>Non-clinical prototype • No diagnostic claims</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Global App Logic -->
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

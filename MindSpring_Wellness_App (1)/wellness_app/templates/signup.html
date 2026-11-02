@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Create Account | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <span class="pill-badge">Student Registration</span>
+  <h1 class="mb-2">Create your mindful space 🌱</h1>
+  <p class="lead-text mb-4">Join fellow students building healthier digital habits and daily focus.</p>
+
+  <form method="post" class="row g-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Full Name</label>
+      <input name="name" class="form-control" placeholder="e.g. Shravan Chavan" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Email Address</label>
+      <input type="email" name="email" class="form-control" placeholder="student@college.edu" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Password (8+ characters)</label>
+      <input type="password" name="password" minlength="8" class="form-control" placeholder="••••••••" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Confirm Password</label>
+      <input type="password" name="confirm" minlength="8" class="form-control" placeholder="••••••••" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Date of Birth</label>
+      <input type="date" name="dob" class="form-control" required>
+      <div class="small text-muted mt-1">Must be at least 16 years of age.</div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Mobile Number (Optional)</label>
+      <input name="mobile" class="form-control" pattern="[0-9]{10}" placeholder="10-digit number">
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Gender</label>
+      <select name="gender" class="form-select" required>
+        <option value="">Select option...</option>
+        {% for x in ['Male', 'Female', 'Non-binary', 'Prefer not to say'] %}
+          <option value="{{ x }}">{{ x }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">College / University</label>
+      <input name="college" class="form-control" placeholder="e.g. Pune University" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Year of Study</label>
+      <select name="year" class="form-select" required>
+        {% for x in ['1st Year', '2nd Year', '3rd Year', '4th Year', 'Postgraduate'] %}
+          <option value="{{ x }}">{{ x }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Field / Branch of Study</label>
+      <select name="field" class="form-select" required>
+        {% for x in ['Engineering & Technology', 'Medical & Health Sciences', 'Pure Sciences', 'Commerce & Management', 'Arts & Humanities', 'Law', 'Design & Architecture', 'Education', 'Other'] %}
+          <option value="{{ x }}">{{ x }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 mt-4">
+      <button class="btn btn-custom-primary btn-lg w-100" type="submit">
+        Create My Account →
+      </button>
+      <p class="small text-muted text-center mt-3">
+        By registering, you agree to our <a href="{{ url_for('privacy') }}">Privacy Policy & Ethics Guidelines</a>.
+      </p>
+      <div class="text-center pt-2">
+        Already have an account? <a href="{{ url_for('login') }}" class="fw-bold text-primary-dark">Log in here</a>.
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

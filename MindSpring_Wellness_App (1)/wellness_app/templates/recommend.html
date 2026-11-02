@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Recommended for {{ mood }} | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card narrow text-center">
+  <span class="pill-badge">Recommended for Feeling {{ mood }}</span>
+  
+  <div class="card-custom overflow-hidden my-3 text-start">
+    <img src="{{ activity[4] }}" class="w-100" style="height: 220px; object-fit: cover;" alt="{{ activity[0] }}">
+    <div class="p-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="fw-bold mb-0">{{ activity[0] }}</h2>
+        <span class="badge bg-light text-dark border">{{ activity[1] }}s</span>
+      </div>
+      <p class="text-muted mb-3">{{ activity[5] }}</p>
+      <span class="badge bg-primary-subtle text-primary text-uppercase">{{ activity[3] }} intervention</span>
+    </div>
+  </div>
+
+  <p class="small text-muted mb-4">
+    Selected for your current intensity ({{ intensity }}/5) and your {{ time }}-minute study window. Move through this entirely at your own pace.
+  </p>
+
+  {% if help %}
+    <div class="alert alert-info text-start d-flex gap-3 align-items-center mb-4">
+      <span class="fs-2">🛟</span>
+      <div class="small">
+        <strong>Intense anxiety notice:</strong> If your thoughts feel too rapid or you experience heart palpitations, please consider pausing and calling <strong>Tele-MANAS (14416)</strong> or reaching out to a campus friend.
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="d-flex flex-column gap-2">
+    <a class="btn btn-custom-primary btn-lg" href="{{ url_for('play', kind=activity[2], mood=mood, intensity=intensity) }}">
+      Begin {{ activity[0] }} →
+    </a>
+
+    <form action="{{ url_for('recommend') }}" method="post" class="mt-2">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="mood" value="{{ mood }}">
+      <input type="hidden" name="intensity" value="{{ intensity }}">
+      <input type="hidden" name="time" value="{{ time }}">
+      <button class="btn btn-custom-secondary w-100">
+        Show Another Suggestion ↻
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

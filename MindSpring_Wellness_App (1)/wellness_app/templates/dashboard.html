@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block title %}My Progress | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="row align-items-center mb-4">
+  <div class="col-lg-8">
+    <span class="pill-badge">Your Wellbeing Journey</span>
+    <h1 class="mb-2">Every small pause matters, {{ first_name(current_user['name']) }} 🌿</h1>
+    <p class="lead-text mb-0">Track your consistency, focus balance, and mindful activity history.</p>
+  </div>
+  <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+    <a href="{{ url_for('home') }}" class="btn btn-custom-primary">
+      Start Next Activity →
+    </a>
+  </div>
+</div>
+
+<!-- Key Metric Overview Cards -->
+<div class="row g-4 mb-4">
+  <!-- Wellness Score Gauge -->
+  <div class="col-lg-4">
+    <div class="card-custom p-4 text-center h-100 d-flex flex-column justify-content-center">
+      <span class="small fw-bold text-muted text-uppercase">Composite Wellness Index</span>
+      <div class="score-circle-modern">
+        <span class="score-num">{{ well }}</span>
+        <span class="score-max">/ 10</span>
+      </div>
+      <h4 class="fw-bold mb-1">{{ label }}</h4>
+      <p class="small text-muted mb-0">Blended from baseline survey + active engagement history.</p>
+    </div>
+  </div>
+
+  <!-- Metric Grid -->
+  <div class="col-lg-8">
+    <div class="row g-3">
+      <div class="col-sm-6">
+        <div class="card-custom p-3 p-md-4">
+          <span class="small fw-bold text-muted d-block mb-1">Baseline Survey</span>
+          <h2 class="fw-bold mb-0 text-primary-dark">{{ s['score'] }}<small class="fs-6 text-muted">/10</small></h2>
+          <span class="small text-muted">Calculated from PSS-4 & habits</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card-custom p-3 p-md-4">
+          <span class="small fw-bold text-muted d-block mb-1">Activity Engagement</span>
+          <h2 class="fw-bold mb-0 text-primary-dark">{{ avg }}<small class="fs-6 text-muted">/10</small></h2>
+          <span class="small text-muted">Focus retention & completion rate</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card-custom p-3 p-md-4">
+          <span class="small fw-bold text-muted d-block mb-1">Mindful Points</span>
+          <h2 class="fw-bold mb-0 text-primary-dark">✨ {{ points }}</h2>
+          <span class="small text-muted">Earned through showing up consistently</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card-custom p-3 p-md-4">
+          <span class="small fw-bold text-muted d-block mb-1">Active Streak</span>
+          <h2 class="fw-bold mb-0 text-primary-dark">🔥 {{ streak }} <small class="fs-6 text-muted">days</small></h2>
+          <span class="small text-muted">Consecutive days of pausing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wellness Domains Breakdown & Badges -->
+<div class="row g-4 mb-4">
+  <div class="col-lg-6">
+    <div class="card-custom p-4 h-100">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">Domain Breakdown</h4>
+        <span class="small text-muted">Target: 7.0+</span>
+      </div>
+
+      {% for domain_name, val in domains.items() %}
+        <div class="mb-3">
+          <div class="d-flex justify-content-between small fw-bold mb-1">
+            <span>{{ domain_name }}</span>
+            <span>{{ '%.1f'|format(val) }} / 10</span>
+          </div>
+          <div class="progress" style="height: 10px; border-radius: 8px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ val * 10 }}%; background-color: var(--primary) !important;"></div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="mt-4 pt-3 border-top">
+        <a href="{{ url_for('survey') }}" class="btn btn-sm btn-custom-secondary">
+          Repeat Survey (Recommended every 2–4 weeks) ↻
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card-custom p-4 h-100">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h4 class="fw-bold mb-0">Achievement Level</h4>
+          <span class="badge bg-primary-subtle text-primary mt-1">{{ level }}</span>
+        </div>
+        <span class="fs-2">🏆</span>
+      </div>
+
+      <div class="d-flex flex-column gap-2 mt-3">
+        {% if badges %}
+          {% for b_title, b_icon, b_desc in badges %}
+            <div class="badge-card">
+              <span class="badge-icon">{{ b_icon }}</span>
+              <div>
+                <strong class="d-block mb-0">{{ b_title }}</strong>
+                <span class="small text-muted">{{ b_desc }}</span>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="p-3 bg-light rounded text-center text-muted small">
+            🌱 Complete your first 2-minute activity to unlock your first badge!
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Mindful Activity Sessions -->
+<div class="card-custom p-4 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold mb-0">Recent Activity Sessions</h4>
+    <span class="small text-muted">Max 6 sessions tracked per day</span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Activity</th>
+          <th>Mood State</th>
+          <th>Engagement Score</th>
+          <th>Shift (Before → After)</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if records %}
+          {% for r in records %}
+            <tr>
+              <td><strong>{{ r['activity'] }}</strong></td>
+              <td><span class="badge bg-light text-dark border">{{ r['mood'] }}</span></td>
+              <td>
+                {% if r['score'] is not none %}
+                  <span class="text-success fw-bold">{{ r['score'] }} / 10</span>
+                {% else %}
+                  <span class="text-muted small">Completed &lt;30%</span>
+                {% endif %}
+              </td>
+              <td>
+                <span class="small text-muted">{{ r['before'] }}/5</span>
+                <span class="mx-1">→</span>
+                <span class="fw-bold text-primary">{{ r['after'] }}/5</span>
+              </td>
+              <td class="small text-muted">{{ r['started'][:10] }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5" class="text-center py-4 text-muted">
+              No sessions completed yet. Head to your <a href="{{ url_for('home') }}">Daily Reset</a> to begin your first exercise!
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Mindful Reflections Log -->
+{% if journals %}
+<div class="card-custom p-4">
+  <h4 class="fw-bold mb-3">Your Mindful Reflections & Small Wins</h4>
+  <div class="row g-3">
+    {% for j in journals %}
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border h-100">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="badge bg-success-subtle text-success">{{ j['tag'] }}</span>
+            <span class="small text-muted">{{ j['created'][:10] }}</span>
+          </div>
+          <p class="mb-0 text-dark">"{{ j['note'] }}"</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<p class="small text-muted text-center mt-4">
+  * The MindSpring Wellness Index is a project-specific estimate, not a clinical assessment or psychological diagnosis.
+</p>
+{% endblock %}

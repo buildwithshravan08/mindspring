@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Settings & Accessibility | {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <span class="pill-badge">Preferences</span>
+  <h1 class="mb-2">Settings & Accessibility ⚙️</h1>
+  <p class="lead-text mb-4">Customize your visual experience and manage your personal data.</p>
+
+  <!-- Accessibility Controls -->
+  <div class="card-custom p-4 mb-4">
+    <h4 class="fw-bold mb-3">Visual & Sensory Accessibility</h4>
+    
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="reduceMotionToggle" onchange="toggleAccessibility('reduce-motion', this.checked)">
+      <label class="form-check-label fw-bold" for="reduceMotionToggle">
+        Reduce Motion & Animation
+      </label>
+      <div class="small text-muted">Disables breathing pulsations, celebratory particle confetti, and UI transitions.</div>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="highContrastToggle" onchange="toggleAccessibility('high-contrast', this.checked)">
+      <label class="form-check-label fw-bold" for="highContrastToggle">
+        High Contrast Display
+      </label>
+      <div class="small text-muted">Increases border definition and text contrast for low-glare visibility.</div>
+    </div>
+  </div>
+
+  <!-- Student Account Profile -->
+  {% if current_user %}
+  <div class="card-custom p-4 mb-4">
+    <h4 class="fw-bold mb-3">Student Profile</h4>
+    <div class="row g-3 small">
+      <div class="col-sm-6">
+        <span class="text-muted d-block">Full Name</span>
+        <strong class="fs-6">{{ current_user['name'] }}</strong>
+      </div>
+      <div class="col-sm-6">
+        <span class="text-muted d-block">Email Address</span>
+        <strong class="fs-6">{{ current_user['email'] }}</strong>
+      </div>
+      <div class="col-sm-6">
+        <span class="text-muted d-block">College / Institute</span>
+        <strong class="fs-6">{{ current_user['college'] }}</strong>
+      </div>
+      <div class="col-sm-6">
+        <span class="text-muted d-block">Academic Year & Field</span>
+        <strong class="fs-6">{{ current_user['year'] }} • {{ current_user['field'] }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Erasure & Account Deletion -->
+  <div class="card-custom p-4 border-danger-subtle bg-light">
+    <h4 class="fw-bold text-danger mb-2">Delete My Account & Personal Data</h4>
+    <p class="small text-muted mb-3">
+      Permanently erases your user profile, baseline surveys, activity history, and mindful journal entries from the local database. This action is irreversible.
+    </p>
+
+    <form method="post" onsubmit="return confirm('Are you completely sure you want to permanently delete your account and all history? This cannot be undone.')">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Enter Account Password to confirm:</label>
+        <input type="password" name="password" placeholder="Your account password" class="form-control" style="max-width: 280px;" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Type DELETE to confirm:</label>
+        <input name="delete" placeholder="DELETE" class="form-control" style="max-width: 280px;" required>
+      </div>
+      <button class="btn btn-outline-danger btn-sm">
+        Permanently Delete My Data
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,779 @@
+/* ==========================================================================
+   MindSpring Design System: Modern Mindful Theme
+   Polished, authentic, and human-crafted aesthetic
+   ========================================================================== */
+
+:root {
+  --primary: #3b6045;
+  --primary-hover: #2d4b35;
+  --primary-light: #e8f0e8;
+  --secondary: #608066;
+  --accent: #d4a373;
+  --cream: #fbfcf8;
+  --surface: #ffffff;
+  --surface-alt: #f2f5ee;
+  --border: #e2e8dc;
+  --border-focus: #98b89e;
+  --text-main: #213326;
+  --text-muted: #5d7062;
+  --shadow-sm: 0 4px 12px rgba(40, 60, 45, 0.04);
+  --shadow-md: 0 10px 28px rgba(40, 60, 45, 0.08);
+  --shadow-lg: 0 18px 45px rgba(40, 60, 45, 0.12);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Typography
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  line-height: 1.2;
+}
+
+.text-primary-dark {
+  color: var(--primary);
+}
+
+.lead-text {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Navigation Bar
+   -------------------------------------------------------------------------- */
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 14px 0;
+  transition: all 0.2s ease;
+}
+
+.navbar-brand-custom {
+  font-weight: 800;
+  font-size: 1.45rem;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand-custom:hover {
+  color: var(--primary-hover);
+}
+
+.nav-link-custom {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-link-custom:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.nav-user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+/* --------------------------------------------------------------------------
+   Cards & Surfaces
+   -------------------------------------------------------------------------- */
+.card-custom, .form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-custom:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.form-card {
+  padding: clamp(24px, 5vw, 42px);
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.form-card.narrow {
+  max-width: 540px;
+}
+
+.pill-badge {
+  display: inline-block;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn-custom-primary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-custom-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(45, 90, 39, 0.25);
+}
+
+.btn-custom-secondary {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-custom-secondary:hover {
+  background-color: var(--surface-alt);
+  border-color: var(--border-focus);
+  color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   Hero & Visual Components
+   -------------------------------------------------------------------------- */
+.hero-wrapper {
+  padding: 40px 0 60px;
+}
+
+.hero-img-box {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-img-box img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.hero-img-box:hover img {
+  transform: scale(1.02);
+}
+
+.hero-floating-stat {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Mood Cards with Photography
+   -------------------------------------------------------------------------- */
+.mood-picker-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.mood-picker-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.mood-picker-card.active-mood {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--primary-light), var(--shadow-md) !important;
+  transform: translateY(-3px);
+}
+
+.mood-img-thumb {
+  height: 140px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.mood-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mood-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.mood-emoji {
+  font-size: 1.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Daily Affirmation 3D Flip Card
+   -------------------------------------------------------------------------- */
+.affirmation-box {
+  background: linear-gradient(135deg, #eaf2e8 0%, #d8ebd4 100%);
+  border: 1px solid #c7dec1;
+  border-radius: var(--radius-md);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.affirmation-quote {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-hover);
+  line-height: 1.5;
+  font-style: italic;
+  margin: 12px 0 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Journal / Quick Reflection Box
+   -------------------------------------------------------------------------- */
+.journal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.tag-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tag-chip {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--surface-alt);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.tag-chip.active, .tag-chip:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   Sound Sanctuary Interactive Cards
+   -------------------------------------------------------------------------- */
+.sound-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.25s ease;
+}
+
+.sound-card.active-sound {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light), var(--shadow-md);
+}
+
+.sound-thumb {
+  height: 130px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.sound-body {
+  padding: 18px;
+}
+
+.sound-controls {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Score & Gamification
+   -------------------------------------------------------------------------- */
+.score-circle-modern {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e4f1dc 0%, #bde3b5 100%);
+  border: 8px solid #a6cca0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.score-num {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.score-max {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.badge-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.badge-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Activity Shell
+   -------------------------------------------------------------------------- */
+.game-shell-modern {
+  max-width: 820px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 5vw, 44px);
+  box-shadow: var(--shadow-md);
+}
+
+.game-area-modern {
+  min-height: 300px;
+  background: var(--surface-alt);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px dashed var(--border);
+}
+
+.breath-circle-modern {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #bde3b5 0%, #8ba888 100%);
+  box-shadow: 0 0 35px rgba(139, 168, 136, 0.4);
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.4rem;
+  animation: breatheSmooth 10s infinite ease-in-out;
+}
+
+@keyframes breatheSmooth {
+  0%, 100% { transform: scale(0.85); box-shadow: 0 0 20px rgba(139, 168, 136, 0.3); }
+  50% { transform: scale(1.15); box-shadow: 0 0 45px rgba(139, 168, 136, 0.6); }
+}
+
+.bubble-btn {
+  border-radius: 50%;
+  background: #c3e2e5;
+  border: 2px solid #a4ced2;
+  min-width: 95px;
+  min-height: 95px;
+  padding: 12px;
+  cursor: pointer;
+  color: #1a4f55;
+  font-weight: 700;
+  transition: transform 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.bubble-btn:hover {
+  transform: scale(1.08);
+  background: #a9d6db;
+}
+
+.rating-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: #ffffff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.rating-btn.selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Footer & Resource Hotline Banner
+   -------------------------------------------------------------------------- */
+.hotline-banner {
+  background: linear-gradient(90deg, #edf4ea 0%, #e1ece0 100%);
+  border: 1px solid #c9dcc8;
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+}
+
+.footer-custom {
+  background: #ffffff;
+  border-top: 1px solid var(--border);
+  padding: 40px 0 24px;
+  margin-top: 60px;
+}
+
+.footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility Modes
+   -------------------------------------------------------------------------- */
+.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.high-contrast {
+  --primary: #123819;
+  --text-main: #000000;
+  --border: #666666;
+  filter: contrast(1.2);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-img-box img {
+    height: 280px;
+  }
+  .form-card {
+    padding: 22px 18px;
+  }
+  .game-shell-modern {
+    padding: 20px 14px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Cinema Marquee Style (Emoji Charades)
+   -------------------------------------------------------------------------- */
+.cinema-container {
+  background: radial-gradient(circle at center, #2e1053 0%, #16062b 100%);
+  border: 4px solid #f6c85f;
+  border-radius: 24px;
+  padding: clamp(20px, 4vw, 36px);
+  color: #ffffff;
+  box-shadow: 0 10px 40px rgba(22, 6, 43, 0.6), 0 0 25px rgba(246, 200, 95, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.cinema-header {
+  color: #ffd166;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.emoji-clue-stage {
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px dashed #f6c85f;
+  border-radius: 18px;
+  padding: 24px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.shake-box {
+  animation: shakeClue 0.45s ease-in-out;
+}
+
+@keyframes shakeClue {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-12px); }
+  40%, 80% { transform: translateX(12px); }
+}
+
+.charades-option-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(246, 200, 95, 0.35);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 16px 20px;
+  border-radius: 14px;
+  transition: all 0.15s ease;
+  min-height: 56px;
+  width: 100%;
+  text-align: center;
+}
+
+.charades-option-btn:hover {
+  background: rgba(246, 200, 95, 0.25);
+  border-color: #f6c85f;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.charades-option-btn.btn-correct {
+  background: #2ec4b6 !important;
+  border-color: #2ec4b6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(46, 196, 182, 0.6);
+}
+
+.charades-option-btn.btn-wrong {
+  background: #e71d36 !important;
+  border-color: #e71d36 !important;
+  color: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cat Puzzle (Queens Puzzle)
+   -------------------------------------------------------------------------- */
+.cat-board {
+  display: grid;
+  gap: 0;
+  margin: 0 auto;
+  border: 4px solid #2d3748;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.cat-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: transform 0.1s ease, filter 0.15s;
+}
+
+.cat-cell:hover {
+  filter: brightness(1.08);
+}
+
+.cat-cell:active {
+  transform: scale(0.95);
+}
+
+.cat-cell.conflict {
+  background-color: #ffccd5 !important;
+  box-shadow: inset 0 0 0 3px #e63946 !important;
+  animation: pulseConflict 0.8s infinite alternate;
+}
+
+@keyframes pulseConflict {
+  from { filter: brightness(1.0); }
+  to { filter: brightness(1.2); }
+}
+
+/* --------------------------------------------------------------------------
+   Sudoku Grid & Controls
+   -------------------------------------------------------------------------- */
+.sudoku-board {
+  display: grid;
+  gap: 0;
+  margin: 0 auto;
+  border: 3px solid #2d3748;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sudoku-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  background: #ffffff;
+  transition: background 0.15s;
+}
+
+.sudoku-cell.given {
+  background-color: #f7fafc;
+  color: #2d3748;
+}
+
+.sudoku-cell.user-filled {
+  color: var(--primary);
+}
+
+.sudoku-cell.selected {
+  background-color: #e2f0d9 !important;
+  box-shadow: inset 0 0 0 3px var(--primary);
+}
+
+.sudoku-cell.conflict {
+  background-color: #fed7d7 !important;
+  color: #e53e3e !important;
+}
+
+.sudoku-pad-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Unified End-Game Results Card
+   -------------------------------------------------------------------------- */
+.results-card-custom {
+  background: #ffffff;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.score-display-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--primary-light);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 24px;
+  border-radius: 40px;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
